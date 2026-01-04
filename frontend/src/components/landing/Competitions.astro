@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import competition_1 from "../../assets/comp_1.png";
+import competition_2 from "../../assets/comp_2.png";
+import competition_3 from "../../assets/comp_3.png";
+---
+
+<div class="container">
+  <h1>Competitions</h1>
+  <div class="carosel">
+    <div class="item">
+      <Image src={competition_1} alt="comp" height={300} />
+    </div>
+    <div class="item">
+      <Image src={competition_2} alt="comp" height={300} />
+    </div>
+    <div class="item">
+      <Image src={competition_3} alt="comp" height={300} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    height: 100vh;
+  }
+
+  .carosel {
+    display: flex;
+    align-items: center;
+    gap: 15rem;
+    overflow-x: scroll;
+  }
+</style>
