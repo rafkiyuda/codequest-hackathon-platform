@@ -37,37 +37,53 @@ const questions = [
 ];
 ---
 
-<div class="grid" id="faq">
-  {
-    questions.map((item, index) => (
-      <div class="text_bubble" data-index={index}>
-        <Image src={text_bubble} alt="text_bubble" width={320} />
-        <div class="question">
-          <span class="text">{item.question}</span>
-          <button class="arrow-btn">
-            <Image src={down_arrow} alt="down_arrow" width={30} />
-          </button>
+<div class="faq" id="faq">
+  <h1>FAQ</h1>
+  <div class="grid">
+    {
+      questions.map((item, index) => (
+        <div class="text_bubble" data-index={index}>
+          <Image src={text_bubble} alt="text_bubble" width={320} />
+          <div class="question">
+            <span class="text">{item.question}</span>
+            <button class="arrow-btn">
+              <Image src={down_arrow} alt="down_arrow" width={30} />
+            </button>
+          </div>
+          <div class="answer hidden">
+            <span class="text">{item.answer}</span>
+            <button class="arrow-btn up">
+              <Image src={down_arrow} alt="up_arrow" width={30} />
+            </button>
+          </div>
         </div>
-        <div class="answer hidden">
-          <span class="text">{item.answer}</span>
-          <button class="arrow-btn up">
-            <Image src={down_arrow} alt="up_arrow" width={30} />
-          </button>
-        </div>
-      </div>
-    ))
-  }
+      ))
+    }
+  </div>
 </div>
 
 <style>
+  .faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 65vh;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    height: 55vh;
-    margin-bottom: 10vh;
-    margin: auto 4rem;
     item-align: center;
+  }
+
+  h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    color: #f7d028;
+    margin: 0;
   }
 
   .text_bubble {
