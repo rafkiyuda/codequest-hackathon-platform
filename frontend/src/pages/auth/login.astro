@@ -1,0 +1,99 @@
+---
+import Login from "../../components/login/Login.astro";
+import "../../styles/login-register.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Log in</title>
+  </head>
+
+  <body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <main class="register-container">
+      <h1>Log In</h1>
+
+      <form class="register-form" id="loginForm">
+        <Login />
+        <button type="submit" class="submit-btn">Log In</button>
+        <p class="switch-auth">
+          Don’t have an account?
+          <a href="/auth/register">Sign Up</a>
+
+        </p>
+      </form>
+    </main>
+  </body>
+
+  <!-- ✅ SCRIPT HARUS DI BAWAH -->
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("loginForm");
+
+      const groupName = document.getElementById("groupName");
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+
+      const groupError = document.getElementById("groupError");
+      const passwordError = document.getElementById("passwordError");
+      const confirmError = document.getElementById("confirmError");
+
+      function validateGroupName() {
+        if (!groupName.value.trim()) {
+          groupError.textContent = "Group name cannot be empty";
+          return false;
+        }
+        groupError.textContent = "";
+        return true;
+      }
+
+      function validatePassword() {
+        if (password.value.length < 8) {
+          passwordError.textContent =
+            "Minimum 8 characters, including uppercase and lowercase letters, numbers, and symbols";
+          return false;
+        }
+        passwordError.textContent = "";
+        return true;
+      }
+
+      function validateConfirmPassword() {
+        if (!confirmPassword.value.trim()) {
+          confirmError.textContent = "Confirm password cannot be empty";
+          return false;
+        }
+        if (confirmPassword.value !== password.value) {
+          confirmError.textContent = "Passwords must match";
+          return false;
+        }
+        confirmError.textContent = "";
+        return true;
+      }
+
+      // realtime validation
+      groupName.addEventListener("input", validateGroupName);
+      password.addEventListener("input", validatePassword);
+      confirmPassword.addEventListener("input", validateConfirmPassword);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const isGroupValid = validateGroupName();
+        const isPasswordValid = validatePassword();
+        const isConfirmValid = validateConfirmPassword();
+
+        if (isGroupValid && isPasswordValid && isConfirmValid) {
+          alert("Login success (dummy)");
+        }
+      });
+    });
+  </script>
+</html>
