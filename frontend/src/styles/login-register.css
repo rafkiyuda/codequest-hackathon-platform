@@ -1,0 +1,101 @@
+.register-container {
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.form-navigation {
+  display: flex;
+  justify-content: center; /* ⬅️ bikin ke tengah */
+  align-items: center;
+  gap: 16px; /* jarak antar tombol */
+  margin-top: 32px;
+}
+
+.error,
+.error-text,
+.form-error {
+  color: red;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif !important;
+}
+
+.password-rules {
+  margin-top: 6px;
+  padding-left: 18px;
+  color: red;
+  font-size: 14px;
+}
+
+/* FORCE PIXELIFY KE SEMUA TEKS FORM */
+body,
+h1,
+h2,
+h3,
+label,
+p,
+span,
+input,
+select,
+option,
+button {
+  font-family: "Pixelify Sans", sans-serif !important;
+}
+
+
+.form-wrapper {
+  position: relative;
+}
+
+.form-bg {
+  width: 100%;
+  display: block;
+}
+
+.form-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 80px 60px;
+}
+
+.hidden {
+  display: none;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-btn {
+  display: block;
+  margin: 20px auto 0;
+}
+
+.switch-auth {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif !important;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.switch-auth a {
+  font-family: inherit !important;
+}
