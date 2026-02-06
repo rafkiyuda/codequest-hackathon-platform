@@ -1,0 +1,126 @@
+---
+const timeline = [
+  {
+    event: "Registration Close",
+    date: "8 February 2026",
+    position: { top: "37%", left: "0.5%", width: "18%", height: "55%" },
+  },
+  {
+    event: "Technical Meeting",
+    date: "9 February 2026",
+    position: { top: "37%", left: "20%", width: "18%", height: "55%" },
+  },
+  {
+    event: "Hacking Session",
+    date: "10-17 February 2026",
+    position: { top: "37%", left: "40%", width: "18%", height: "55%" },
+  },
+  {
+    event: "Final Submission",
+    date: "18 February 2026",
+    position: { top: "37%", left: "60.5%", width: "18%", height: "55%" },
+  },
+  {
+    event: "Pitching and Judging",
+    date: "19 February 2026",
+    position: { top: "37%", left: "81.5%", width: "18%", height: "55%" },
+  },
+];
+---
+
+<div class="timeline-container" id="timeline">
+  <h1>Timeline</h1>
+
+  <div class="image-wrapper">
+    {
+      timeline.map((prize) => (
+        <div
+          class="hotspot"
+          style={`
+            top: ${prize.position.top}; 
+            left: ${prize.position.left}; 
+            width: ${prize.position.width};
+            height: ${prize.position.height};
+          `}
+        >
+          <div class="prize-info">
+            <h3>{prize.event}</h3>
+            <p>{prize.date}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .timeline-container {
+    position: absolute;
+    top: 52.4%;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-container h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    color: #f7d028;
+    margin-bottom: 14vh;
+  }
+
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+    height: 25vh;
+    width: 55vw;
+  }
+
+  .hotspot {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .hotspot:hover {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1))
+      drop-shadow(0 0 40px rgba(255, 215, 0, 0.9))
+      drop-shadow(0 0 60px rgba(255, 215, 0, 0.7));
+    transform: scale(1.05);
+    z-index: 100;
+  }
+
+  .prize-info {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    font-family: "Pixelify Sans", sans-serif;
+    text-align: center;
+  }
+
+  .prize-info h3 {
+    margin: 0 0 2px 0;
+    font-size: 1.2rem;
+  }
+
+  .prize-info p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .hotspot:hover .prize-info p {
+    opacity: 1;
+  }
+</style>

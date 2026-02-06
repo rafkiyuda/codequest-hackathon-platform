@@ -1,0 +1,73 @@
+---
+
+---
+
+<div class="login-container" id="login">
+  <h1>Login</h1>
+  <div class="login-button">
+    <a href="/login">
+      <h2>Begin your<br />Quest</h2>
+    </a>
+    <p>don't have an account? <a href="/register">sign up</a></p>
+  </div>
+</div>
+
+<style>
+  .login-container {
+    position: absolute;
+    top: 57.8%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .login-container h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    color: #f7d028;
+    margin-bottom: 35vh;
+  }
+
+  .login-button {
+    width: 30vw;
+    height: 10vh;
+  }
+
+  .login-button a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .login-button h2 {
+    font-family: "Palatino Linotype", sans-serif;
+    font-size: 4rem;
+    letter-spacing: 0.1rem;
+    line-height: 4rem;
+    margin: 0;
+    background: linear-gradient(to right, white, #f7d028);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+  }
+
+  .login-button a:hover h2 {
+    transform: scale(1.05);
+  }
+
+  .login-button p {
+    font-family: "Palatino Linotype", sans-serif;
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+  }
+
+  .login-button a {
+    color: #f7d028;
+  }
+</style>

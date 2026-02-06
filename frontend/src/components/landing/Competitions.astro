@@ -3,32 +3,184 @@ import { Image } from "astro:assets";
 import competition_1 from "../../assets/comp_1.png";
 import competition_2 from "../../assets/comp_2.png";
 import competition_3 from "../../assets/comp_3.png";
+import arrow from "../../assets/chevron-down.svg";
 ---
 
 <div class="container" id="competitions">
   <h1>Competitions</h1>
-  <div class="carosel">
-    <div class="item">
-      <Image src={competition_1} alt="comp" height={300} />
+
+  <div class="carousel-wrapper">
+    <button class="nav-btn left" id="prevBtn">
+      <Image src={arrow} alt="arrow" />
+    </button>
+
+    <div class="carousel">
+      <div class="carousel-item" data-index="0">
+        <Image src={competition_1} alt="Competition 1" height={300} />
+      </div>
+      <div class="carousel-item" data-index="1">
+        <Image src={competition_2} alt="Competition 2" height={300} />
+      </div>
+      <div class="carousel-item" data-index="2">
+        <Image src={competition_3} alt="Competition 3" height={300} />
+      </div>
     </div>
-    <div class="item">
-      <Image src={competition_2} alt="comp" height={300} />
-    </div>
-    <div class="item">
-      <Image src={competition_3} alt="comp" height={300} />
-    </div>
+
+    <button class="nav-btn right" id="nextBtn">
+      <Image src={arrow} alt="arrow" />
+    </button>
   </div>
 </div>
 
 <style>
   .container {
-    height: 100vh;
+    position: absolute;
+    top: 12%;
+    width: 100%;
+    text-align: center;
   }
 
-  .carosel {
+  .container h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    color: #f7d028;
+  }
+
+  .carousel-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 15rem;
-    overflow-x: scroll;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 0;
+  }
+
+  .carousel {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-item {
+    position: absolute;
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .carousel-item img {
+    display: block;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-item[data-position="center"] {
+    z-index: 3;
+    transform: translateX(0) scale(1.2);
+    opacity: 1;
+  }
+
+  .carousel-item[data-position="left"] {
+    z-index: 2;
+    transform: translateX(-420px) scale(0.8);
+    opacity: 0.6;
+  }
+
+  .carousel-item[data-position="right"] {
+    z-index: 2;
+    transform: translateX(420px) scale(0.8);
+    opacity: 0.6;
+  }
+
+  .carousel-item[data-position="hidden-left"] {
+    z-index: 1;
+    transform: translateX(-420px) scale(0.6);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .carousel-item[data-position="hidden-right"] {
+    z-index: 1;
+    transform: translateX(420px) scale(0.6);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .carousel-item:hover {
+    filter: brightness(1.1);
+  }
+
+  .nav-btn {
+    background: #f7d028;
+    border: none;
+    font-size: 2.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    z-index: 4;
+  }
+
+  .nav-btn:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-btn:active {
+    transform: scale(1.05);
+  }
+
+  #nextBtn img {
+    transform: rotate(-90deg);
+  }
+
+  #prevBtn img {
+    transform: rotate(90deg);
   }
 </style>
+
+<script>
+  let currentIndex = 0;
+  const items = document.querySelectorAll(".carousel-item");
+  const totalItems = items.length;
+
+  function updateCarousel() {
+    items.forEach((item, index) => {
+      let position = index - currentIndex;
+
+      if (position < -1) position += totalItems;
+      if (position > 1) position -= totalItems;
+
+      if (position === 0) {
+        item.setAttribute("data-position", "center");
+      } else if (position === -1) {
+        item.setAttribute("data-position", "left");
+      } else {
+        item.setAttribute("data-position", "right");
+      }
+    });
+  }
+
+  document.getElementById("nextBtn")?.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % totalItems;
+    updateCarousel();
+  });
+
+  document.getElementById("prevBtn")?.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+    updateCarousel();
+  });
+
+  items.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      currentIndex = index;
+      updateCarousel();
+    });
+  });
+
+  updateCarousel();
+</script>

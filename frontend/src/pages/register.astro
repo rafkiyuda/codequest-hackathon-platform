@@ -1,0 +1,478 @@
+---
+import StepGroup from "../components/register/StepGroup.astro";
+import StepLeader from "../components/register/StepLeader.astro";
+import "../styles/login-register.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+  </head>
+
+  <body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <main class="register-container">
+      <main class="register-container">
+        <h1>Register</h1>
+
+        <form class="register-form">
+          <!-- STEP 1 -->
+          <section class="form-step active" data-step="1">
+            <StepGroup />
+          </section>
+
+          <!-- STEP 2 -->
+          <section class="form-step" data-step="2">
+            <StepLeader />
+          </section>
+
+          <!-- NAVIGATION -->
+          <div class="form-navigation">
+            <button type="button" id="prevBtn" class="hidden">Back</button>
+            <button type="button" id="nextBtn">Next</button>
+            <button type="button" id="submitBtn" class="hidden">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </main>
+
+      <!-- SEMUA JS HARUS DI DALAM SATU SCRIPT -->
+
+      <script is:inline>
+        document.addEventListener("DOMContentLoaded", () => {
+          const form = document.querySelector(".register-form");
+
+          let currentStep = Number(localStorage.getItem("currentStep")) || 1;
+
+          function goToStep(step) {
+            currentStep = step;
+            localStorage.setItem("currentStep", step);
+            updateStepUI();
+          }
+
+          // Group Information
+          const steps = document.querySelectorAll(".form-step");
+          const prevBtn = document.getElementById("prevBtn");
+          const nextBtn = document.getElementById("nextBtn");
+          const submitBtn = document.getElementById("submitBtn");
+
+          const statusSelect = document.getElementById("status");
+          const flazzUpload = document.getElementById("flazzUpload");
+          const idCardUpload = document.getElementById("idCardUpload");
+
+          function validateGroupName() {
+            const groupName = document.getElementById("groupName");
+            const groupError = document.getElementById("groupError");
+
+            if (!groupName.value.trim()) {
+              groupError.textContent = "Group name cannot be empty";
+            } else {
+              groupError.textContent = "";
+            }
+          }
+
+          const passwordInput = document.getElementById("password");
+          const passwordError = document.getElementById("passwordError");
+
+          function validatePassword() {
+            if (passwordInput.value.length < 8) {
+              passwordError.textContent =
+                "Minimum 8 characters, including uppercase and lowercase letters, numbers, and symbols";
+            } else {
+              passwordError.textContent = "";
+            }
+          }
+
+          passwordInput.addEventListener("input", validatePassword);
+
+          function validateConfirmPassword() {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmPassword");
+            const confirmError = document.getElementById("confirmError");
+
+            if (!confirmPassword.value.trim()) {
+              confirmError.textContent = "Confirm password cannot be empty";
+            } else if (confirmPassword.value !== password.value) {
+              confirmError.textContent = "Passwords must match";
+            } else {
+              confirmError.textContent = "";
+            }
+          }
+
+          function validateStatus() {
+            const status = document.getElementById("status");
+            const statusError = document.getElementById("statusError");
+
+            if (status.value === "") {
+              statusError.textContent = "Status must be selected";
+            } else {
+              statusError.textContent = "";
+            }
+          }
+
+          function validateStep1() {
+            let isValid = true;
+
+            const groupName = document.getElementById("groupName");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmPassword");
+            const status = document.getElementById("status");
+
+            const groupError = document.getElementById("groupError");
+            const passwordError = document.getElementById("passwordError");
+            const confirmError = document.getElementById("confirmError");
+            const statusError = document.getElementById("statusError");
+
+            console.log("confirmPassword:", confirmPassword);
+            console.log("confirmError:", confirmError);
+
+            groupError.textContent = "";
+            passwordError.textContent = "";
+            confirmError.textContent = "";
+            statusError.textContent = "";
+
+            if (!groupName.value.trim()) {
+              groupError.textContent = "Group name cannot be empty";
+              isValid = false;
+            }
+
+            if (password.value.length < 8) {
+              passwordError.textContent =
+                "Minimum 8 characters, including uppercase and lowercase letters, numbers, and symbols.";
+              isValid = false;
+            }
+
+            if (!confirmPassword.value.trim()) {
+              confirmError.textContent = "Confirm password cannot be empty";
+              isValid = false;
+            } else if (confirmPassword.value !== password.value) {
+              confirmError.textContent = "Passwords must match";
+              isValid = false;
+            }
+
+            if (!status.value) {
+              statusError.textContent = "Status must be selected";
+              isValid = false;
+            }
+
+            return isValid;
+          }
+
+          function validateStep2() {
+            function clearErrorOnInput(inputId, errorId) {
+              const input = document.getElementById(inputId);
+              const error = document.getElementById(errorId);
+
+              if (!input || !error) return;
+
+              input.addEventListener("input", () => {
+                error.textContent = "";
+              });
+            }
+
+            clearErrorOnInput("fullName", "fullNameError");
+            clearErrorOnInput("email", "emailError");
+            clearErrorOnInput("whatsappNumber", "whatsappNumberError");
+            clearErrorOnInput("lineId", "lineIdError");
+            clearErrorOnInput("github", "githubError");
+            clearErrorOnInput("birthPlace", "birthPlaceError");
+            clearErrorOnInput("birthDate", "birthDateError");
+
+            console.log(
+              document.getElementById("birthDate"),
+              document.getElementById("cvUpload")
+            );
+
+            console.log("birthPlace:", document.getElementById("birthPlace"));
+
+            let isValid = true;
+
+            const fullName = document.getElementById("fullName");
+            const email = document.getElementById("email");
+            const whatsappNumber = document.getElementById("whatsappNumber");
+            const lineId = document.getElementById("lineId");
+            const github = document.getElementById("github");
+            const birthPlace = document.getElementById("birthPlace");
+            const birthDate = document.getElementById("birthDate");
+            const cvUpload = document.getElementById("cvUpload");
+
+            const fullNameError = document.getElementById("fullNameError");
+            const emailError = document.getElementById("emailError");
+            const whatsappNumberError = document.getElementById(
+              "whatsappNumberError"
+            );
+            const lineIdError = document.getElementById("lineIdError");
+            const githubError = document.getElementById("githubError");
+            const birthPlaceError = document.getElementById("birthPlaceError");
+            const birthDateError = document.getElementById("birthDateError");
+            const cvError = document.getElementById("cvError");
+
+            fullName.addEventListener("input", () => {
+              if (!fullName.value.trim()) {
+                fullNameError.textContent = "Full name cannot be empty";
+              } else {
+                fullNameError.textContent = "";
+              }
+            });
+
+            email.addEventListener("input", () => {
+              if (!email.value.trim()) {
+                emailError.textContent = "Email cannot be empty";
+              } else if (!email.value.includes("@")) {
+                emailError.textContent =
+                  "Enter a valid email address (e.g. user@gmail.com)";
+              } else {
+                emailError.textContent = "";
+              }
+            });
+
+            whatsappNumber.addEventListener("input", () => {
+              if (!whatsappNumber.value.trim()) {
+                whatsappNumberError.textContent =
+                  "Whatsapp number cannot be empty";
+              } else if (whatsappNumber.value.length < 9) {
+                whatsappNumberError.textContent =
+                  "At least 9 digits and the number must be unique";
+              } else {
+                whatsappNumberError.textContent = "";
+              }
+            });
+
+            lineId.addEventListener("input", () => {
+              if (!lineId.value.trim()) {
+                lineIdError.textContent = "Enter a valid Line ID";
+              } else {
+                lineIdError.textContent = "";
+              }
+            });
+
+            github.addEventListener("input", () => {
+              if (!github.value.trim()) {
+                githubError.textContent = "Enter a valid GitHub username";
+              } else {
+                githubError.textContent = "";
+              }
+            });
+
+            birthDate.addEventListener("change", () => {
+              if (!birthDate.value) {
+                birthDateError.textContent = "Birth date must be selected";
+              } else {
+                birthDateError.textContent = "";
+              }
+            });
+
+            cvUpload.addEventListener("change", () => {
+              if (!cvUpload.value) {
+                cvError.textContent = "CV must be in PDF format";
+              } else {
+                cvError.textContent = "";
+              }
+            });
+
+            statusSelect.addEventListener("change", () => {
+              // reset error
+              flazzError.textContent = "";
+              idCardError.textContent = "";
+
+              // reset file input
+              flazzFile.value = "";
+              idCardFile.value = "";
+
+              if (statusSelect.value === "binusian") {
+                flazzUpload.classList.remove("hidden");
+                idCardUpload.classList.add("hidden");
+              }
+
+              if (statusSelect.value === "non-binusian") {
+                idCardUpload.classList.remove("hidden");
+                flazzUpload.classList.add("hidden");
+              }
+            });
+
+            // reset error
+            fullNameError.textContent = "";
+            emailError.textContent = "";
+            whatsappNumberError.textContent = "";
+            lineIdError.textContent = "";
+            githubError.textContent = "";
+            birthPlaceError.textContent = "";
+            birthDateError.textContent = "";
+            cvError.textContent = "";
+
+            if (!fullName.value.trim()) {
+              fullNameError.textContent = "Full name cannot be empty";
+              isValid = false;
+            }
+
+            if (!email.value.trim()) {
+              emailError.textContent = "Email cannot be empty";
+            } else if (!email.value.includes("@")) {
+              emailError.textContent =
+                "Enter a valid email address (e.g. user@gmail.com)";
+              isValid = false;
+            }
+
+            if (!whatsappNumber.value.trim()) {
+              whatsappNumberError.textContent =
+                "At least 9 digits and the number must be unique";
+              isValid = false;
+            }
+
+            if (!lineId.value.trim()) {
+              lineIdError.textContent = "Enter a valid Line ID";
+              isValid = false;
+            }
+
+            if (!github.value.trim()) {
+              githubError.textContent = "Enter a valid GitHub username";
+              isValid = false;
+            }
+
+            if (!birthPlace.value.trim()) {
+              birthPlaceError.textContent = "Birth place cannot be empty";
+              isValid = false;
+            }
+
+            if (!birthDate.value) {
+              birthDateError.textContent = "Birth date must be selected";
+              isValid = false;
+            }
+
+            if (!cvUpload.files.length) {
+              cvError.textContent = "CV must be in PDF format";
+              isValid = false;
+            }
+
+            const flazzFile = document.getElementById("flazzFile");
+            const idCardFile = document.getElementById("idCardFile");
+
+            if (statusSelect.value === "binusian") {
+              if (!flazzFile.files.length) {
+                document.getElementById("flazzError").textContent =
+                  "Flazz card must be an image (JPG or PNG)";
+                isValid = false;
+              }
+            }
+
+            if (statusSelect.value === "non-binusian") {
+              if (!idCardFile.files.length) {
+                document.getElementById("idCardError").textContent =
+                  "ID card must be an image (JPG or PNG)";
+                isValid = false;
+              }
+            }
+
+            return isValid;
+          }
+
+          submitBtn.addEventListener("click", (e) => {
+            if (!validateStep2()) {
+              e.preventDefault();
+            } else {
+              console.log("✅ Step 2 valid, form can submit");
+            }
+          });
+
+          document.getElementById("lineId").addEventListener("input", () => {
+            document.getElementById("lineIdError").textContent = "";
+          });
+
+          function updateStepUI() {
+            steps.forEach((step, index) => {
+              step.classList.toggle("active", index === currentStep - 1);
+            });
+
+            if (currentStep === 1) {
+              prevBtn.classList.add("hidden");
+              nextBtn.classList.remove("hidden");
+              submitBtn.classList.add("hidden");
+            }
+
+            if (currentStep === 2) {
+              prevBtn.classList.remove("hidden");
+              nextBtn.classList.add("hidden");
+              submitBtn.classList.remove("hidden");
+
+              if (statusSelect.value === "binusian") {
+                flazzUpload.classList.remove("hidden");
+                idCardUpload.classList.add("hidden");
+              } else if (statusSelect.value === "non-binusian") {
+                idCardUpload.classList.remove("hidden");
+                flazzUpload.classList.add("hidden");
+              }
+            }
+            document
+              .getElementById("groupName")
+              .addEventListener("input", validateGroupName);
+
+            document
+              .getElementById("confirmPassword")
+              .addEventListener("input", validateConfirmPassword);
+
+            document
+              .getElementById("status")
+              .addEventListener("change", validateStatus);
+          }
+
+          nextBtn.addEventListener("click", () => {
+            if (validateStep1()) {
+              currentStep = 2;
+              updateStepUI();
+            }
+          });
+
+          prevBtn.addEventListener("click", () => {
+            currentStep = 1;
+            updateStepUI();
+          });
+
+          updateStepUI();
+
+          // BIRTH PLACE DROPDOWN
+          const cities = [
+            "Jakarta",
+            "Bandung",
+            "Surabaya",
+            "Medan",
+            "Semarang",
+            "Yogyakarta",
+            "Malang",
+            "Denpasar",
+            "Makassar",
+            "Palembang",
+            "Bogor",
+            "Depok",
+            "Tangerang",
+            "Bekasi",
+          ];
+
+          const birthPlaceSelect = document.getElementById("birthPlace");
+
+          if (!birthPlaceSelect) {
+            console.log("❌ birthPlace NOT FOUND");
+            return;
+          }
+
+          cities.forEach((city) => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            birthPlaceSelect.appendChild(option);
+          });
+
+          console.log("✅ Cities loaded");
+        });
+      </script>
+    </main>
+  </body>
+</html>
