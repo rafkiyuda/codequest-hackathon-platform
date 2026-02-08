@@ -104,6 +104,8 @@ router.post('/register', upload.fields([
     }
 });
 
+module.exports = router;
+
 // Login Route
 router.post('/login', async (req, res) => {
     try {
