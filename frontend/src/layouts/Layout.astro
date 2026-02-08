@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Codequest</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body>
-    <slot />
+    <div class="background-wrapper">
+      <slot />
+    </div>
   </body>
 </html>
 
@@ -23,8 +25,8 @@
   html,
   body {
     margin: 0;
+    padding: 0;
     width: 100%;
-    min-height: 100%;
   }
 
   html {
@@ -33,7 +35,15 @@
 
   body {
     background-image: url("../assets/background_landing.png");
-    background-size: cover;
+    background-size: 100% auto;
     background-repeat: no-repeat;
+    background-position: top center;
+  }
+
+  .background-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1067 / 5598;
+    min-height: 100vh;
   }
 </style>

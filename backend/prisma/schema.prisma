@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Status {
+  BINUSIAN
+  NON_BINUSIAN
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  groupName String   @unique
+  password  String
+  status    Status
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  leader    Leader?
+}
+
+model Leader {
+  id             String   @id @default(cuid())
+  fullName       String
+  email          String   @unique
+  whatsappNumber String   @unique
+  lineId         String   @unique
+  githubId       String   @unique
+  birthPlace     String
+  birthDate      DateTime
+  cvUrl          String
+  idCardUrl      String
+  team           Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId         String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Mentor {
+  id        String   @id @default(cuid())
+  name      String
+  title     String
+  type      String   // Mentor or Jury
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prize {
+  id        String   @id @default(cuid())
+  rank      String
+  reward    String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Timeline {
+  id        String   @id @default(cuid())
+  event     String
+  date      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Social {
+  id        String   @id @default(cuid())
+  name      String
+  account   String
+  url       String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

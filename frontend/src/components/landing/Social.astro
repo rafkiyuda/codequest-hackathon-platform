@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+import instagram from "../../assets/instagram.png";
+import twitter from "../../assets/twitter.png";
+import gmail from "../../assets/gmail.png";
+import linkedin from "../../assets/linkedin.png";
+
+const socials = [
+  {
+    src: instagram,
+    account: "@technoscapebncc",
+    url: "https://instagram.com/technoscapebncc",
+    position: { top: "30%", left: "20%" },
+  },
+  {
+    src: gmail,
+    account: "technoscape@bncc.net",
+    url: "mailto:technoscape@bncc.net",
+    position: { top: "30%", left: "50%" },
+  },
+  {
+    src: instagram,
+    account: "@BNCC_Binus",
+    url: "https://instagram.com/BNCC_Binus",
+    position: { top: "75%", left: "10%" },
+  },
+  {
+    src: linkedin,
+    account: "@bina.nusantara.computer.club",
+    url: "https://linkedin.com/company/bina.nusantara.computer.club",
+    position: { top: "85%", left: "30%" },
+  },
+  {
+    src: twitter,
+    account: "@bnccbinus",
+    url: "https://twitter.com/bnccbinus",
+    position: { top: "75%", left: "75%" },
+  },
+];
+---
+
+<div class="social-container" id="social">
+  <h1>Social Media</h1>
+
+  <div class="image-wrapper">
+    {
+      socials.map((social) => (
+        <a
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-item"
+          style={`top: ${social.position.top}; left: ${social.position.left};`}
+        >
+          <Image src={social.src} alt="social" height={40} />
+          <h3>{social.account}</h3>
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .social-container {
+    position: absolute;
+    top: 74.5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-container h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 4rem;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  }
+
+  .image-wrapper {
+    position: relative;
+    height: 55vh;
+    width: 55vw;
+  }
+
+  .social-item {
+    position: absolute;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    font-family: "Pixelify Sans", sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .social-item:hover {
+    transform: scale(1.1);
+  }
+
+  .social-item h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+</style>

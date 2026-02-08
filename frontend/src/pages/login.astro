@@ -1,0 +1,124 @@
+---
+import "../../styles/login-register.css";
+import background from "../../assets/background_kursi_kerajaan.png";
+import logo from "../../assets/logo.png";
+import paperScroll from "../../assets/paper_scroll.png";
+import LoginForm from "../../components/login/Login.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in | Code Quest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="h-screen">
+    <!-- BACKGROUND IMAGE -->
+    <div class="background-container">
+      <img 
+        src={background.src} 
+        alt="Background" 
+        class="background-img"
+      />
+    </div>
+
+    <!-- HEADER WITH WHITE BAR -->
+    <header class="logo-header fade-down">
+      <img src={logo.src} alt="Code Quest Logo" class="intro-logo" />
+    </header>
+
+    <main class="auth-wrapper">
+      <!-- SCROLL CONTAINER -->
+      <div class="scroll-content h-screen fade-up">
+        <!-- Paper Scroll Background -->
+        <img 
+          src={paperScroll.src} 
+          alt="Scroll Background" 
+          class="scroll-bg"
+        />
+        
+        <div class="scroll-content">
+           <h1 class="login-title">LOGIN</h1>
+           
+           <h2 class="section-title">Login to your account</h2>
+
+           <form class="login-form w-full" id="loginForm" autocomplete="off">
+             <LoginForm />
+             
+             <button type="submit" class="submit-btn" id="loginBtn">Login</button>
+             
+             <p class="switch-auth">
+               Don’t have an account?
+               <a href="/auth/register">Sign Up</a>
+             </p>
+           </form>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("loginForm");
+      const groupName = document.getElementById("groupName");
+      const password = document.getElementById("password");
+      const groupError = document.getElementById("groupError");
+      const passwordError = document.getElementById("passwordError");
+      const toggleBtn = document.getElementById('togglePassword');
+      const eyeIconSpan = document.getElementById('eye-icon-content');
+
+      // Toggle Password Visibility
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+          password.setAttribute('type', type);
+          // Toggle between two icons/emojis
+          eyeIconSpan.textContent = type === 'password' ? '👁️‍🗨️' : '👁️';
+        });
+      }
+
+      function validateGroupName() {
+        if (!groupName.value.trim()) {
+          groupError.textContent = "Group name cannot be empty";
+          return false;
+        }
+        groupError.textContent = "";
+        return true;
+      }
+
+      function validatePassword() {
+        if (password.value.length < 1) {
+           passwordError.textContent = "Password cannot be empty";
+           return false;
+        }
+        passwordError.textContent = "";
+        return true;
+      }
+
+      // Realtime validation
+      groupName.addEventListener("input", validateGroupName);
+      password.addEventListener("input", validatePassword);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const isGroupValid = validateGroupName();
+        const isPasswordValid = validatePassword();
+  
+        if (isGroupValid && isPasswordValid) {
+          console.log("Logging in with:", {
+            groupName: groupName.value,
+            password: password.value
+          });
+          // Add your actual login logic here
+          alert("Login feature coming soon!");
+        }
+      });
+    });
+  </script>
+</html>

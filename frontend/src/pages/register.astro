@@ -1,0 +1,152 @@
+---
+import "../../styles/login-register.css";
+import background from "../../assets/background_kursi_kerajaan.png";
+import logo from "../../assets/logo.png";
+import paperScroll from "../../assets/paper_scroll.png";
+import StepGroup from "../../components/register/StepGroup.astro";
+import StepLeaderBinusian from "../../components/register/StepLeaderBinusian.astro";
+import StepLeaderNonBinusian from "../../components/register/StepLeaderNonBinusian.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | Code Quest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- BACKGROUND IMAGE -->
+    <div class="background-container">
+      <img src={background.src} alt="Background" class="background-img" />
+    </div>
+
+    <!-- HEADER WITH WHITE BAR -->
+    <header class="logo-header fade-down">
+      <img src={logo.src} alt="Code Quest Logo" class="intro-logo" />
+    </header>
+
+    <main class="auth-wrapper">
+      <!-- SCROLL CONTAINER -->
+      <div class="scroll-content fade-up">
+        <!-- Paper Scroll Background -->
+        <img src={paperScroll.src} alt="Scroll Background" class="scroll-bg" />
+
+        <div class="scroll-content">
+          <h1 class="login-title">REGISTRATION</h1>
+
+          <form class="login-form" id="registerForm" autocomplete="off">
+            <StepGroup />
+            <StepLeaderBinusian />
+            <StepLeaderNonBinusian />
+
+            <div class="button-row">
+              <button type="button" class="submit-btn" id="nextBtn">Next →</button>
+              <button type="submit" class="submit-btn hidden" id="registerBtn">Sign Up</button>
+            </div>
+
+            <div class="stepper-indicator">
+              <button type="button" class="step-dot active" id="stepDot1">1</button>
+              <button type="button" class="step-dot" id="stepDot2">2</button>
+            </div>
+
+            <p class="switch-auth">
+              Already have an account?
+              <a href="/auth/login">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const stepGroup = document.getElementById("stepGroup");
+      const stepLeaderBinusian = document.getElementById("stepLeaderBinusian");
+      const stepLeaderNonBinusian = document.getElementById("stepLeaderNonBinusian");
+      const identitySelect = document.getElementById("identity");
+      const nextBtn = document.getElementById("nextBtn");
+      const registerBtn = document.getElementById("registerBtn");
+      const stepDot1 = document.getElementById("stepDot1");
+      const stepDot2 = document.getElementById("stepDot2");
+
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+
+      const togglePassword = document.getElementById("togglePassword");
+      const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+      const eyeIcon = document.getElementById("eye-icon-content");
+      const eyeIconConfirm = document.getElementById("eye-icon-content-confirm");
+
+      function setupToggle(button, input, icon) {
+        if (!button || !input || !icon) return;
+        button.addEventListener("click", () => {
+          const type = input.getAttribute("type") === "password" ? "text" : "password";
+          input.setAttribute("type", type);
+          icon.textContent = type === "password" ? "👁️‍🗨️" : "👁️";
+        });
+      }
+
+      setupToggle(togglePassword, password, eyeIcon);
+      setupToggle(toggleConfirmPassword, confirmPassword, eyeIconConfirm);
+
+      function updateLeaderType() {
+        const isBinusian = identitySelect.value === "Binusian";
+        stepLeaderBinusian.classList.toggle("hidden", !isBinusian);
+        stepLeaderNonBinusian.classList.toggle("hidden", isBinusian);
+      }
+
+      function showStep(step) {
+        if (step === 1) {
+          stepGroup.classList.remove("hidden");
+          stepLeaderBinusian.classList.add("hidden");
+          stepLeaderNonBinusian.classList.add("hidden");
+          nextBtn.classList.remove("hidden");
+          registerBtn.classList.add("hidden");
+
+          stepDot1.classList.add("active");
+          stepDot1.classList.remove("completed");
+          stepDot1.textContent = "1";
+          stepDot2.classList.remove("active");
+          stepDot2.textContent = "2";
+        } else {
+          stepGroup.classList.add("hidden");
+          updateLeaderType();
+          nextBtn.classList.add("hidden");
+          registerBtn.classList.remove("hidden");
+
+          stepDot1.classList.remove("active");
+          stepDot1.classList.add("completed");
+          stepDot1.textContent = "✓";
+          stepDot2.classList.add("active");
+          stepDot2.textContent = "2";
+        }
+      }
+
+      identitySelect.addEventListener("change", () => {
+        if (!stepGroup.classList.contains("hidden")) return;
+        updateLeaderType();
+      });
+
+      nextBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        showStep(2);
+      });
+
+      stepDot1.addEventListener("click", () => showStep(1));
+      stepDot2.addEventListener("click", () => showStep(2));
+
+      document.getElementById("registerForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Registration feature coming soon!");
+      });
+
+      showStep(1);
+    });
+  </script>
+</html>
