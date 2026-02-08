@@ -54,7 +54,7 @@ import LoginForm from "../components/login/Login.astro";
              
              <p class="switch-auth">
                Don’t have an account?
-               <a href="/auth/register">Sign Up</a>
+               <a href="/register">Sign Up</a>
              </p>
            </form>
         </div>
@@ -100,24 +100,8 @@ import LoginForm from "../components/login/Login.astro";
         return true;
       }
 
-<<<<<<< HEAD
-      function validateConfirmPassword() {
-        if (!confirmPassword.value.trim()) {
-          confirmError.textContent = "Confirm password cannot be empty";
-          return false;
-        }
-        if (confirmPassword.value !== password.value) {
-          confirmError.textContent = "Passwords must match";
-          return false;
-        }
-        confirmError.textContent = "";
-        return true;
-      }
-
-=======
       // Realtime validation
       groupName.addEventListener("input", validateGroupName);
->>>>>>> main
       password.addEventListener("input", validatePassword);
 
       form.addEventListener("submit", async (e) => {
@@ -125,11 +109,10 @@ import LoginForm from "../components/login/Login.astro";
 
         const isGroupValid = validateGroupName();
         const isPasswordValid = validatePassword();
-<<<<<<< HEAD
 
         if (isGroupValid && isPasswordValid) {
           try {
-            const btn = form.querySelector('button[type="submit"]');
+            const btn = document.getElementById("loginBtn");
             btn.disabled = true;
             btn.textContent = "Logging in...";
 
@@ -156,20 +139,10 @@ import LoginForm from "../components/login/Login.astro";
             console.error(err);
             alert("Connection error to backend");
           } finally {
-            const btn = form.querySelector('button[type="submit"]');
+            const btn = document.getElementById("loginBtn");
             btn.disabled = false;
-            btn.textContent = "Log In";
+            btn.textContent = "Login";
           }
-=======
-  
-        if (isGroupValid && isPasswordValid) {
-          console.log("Logging in with:", {
-            groupName: groupName.value,
-            password: password.value
-          });
-          // Add your actual login logic here
-          alert("Login feature coming soon!");
->>>>>>> main
         }
       });
     });
