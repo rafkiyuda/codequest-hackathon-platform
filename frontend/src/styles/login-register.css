@@ -15,8 +15,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: transparent; /* Changed from #000 to show background image */
-  padding-top: 100px; /* Offset for fixed header bar */
+  background-color: transparent;
+  /* Changed from #000 to show background image */
+  padding-top: 100px;
+  /* Offset for fixed header bar */
 }
 
 .login-form {
@@ -45,7 +47,8 @@ body {
   left: 0;
   width: 100%;
   height: 100px;
-  background: rgba(255, 255, 255, 0.4); /* WHITE semi-transparent bar */
+  background: rgba(255, 255, 255, 0.4);
+  /* WHITE semi-transparent bar */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +73,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 120px 0; /* Padding to keep content away from top/bottom rolls */
+  padding: 120px 0;
+  /* Padding to keep content away from top/bottom rolls */
 }
 
 .scroll-bg {
@@ -80,13 +84,15 @@ body {
   width: 100%;
   height: 100%;
   z-index: 0;
-  object-fit: fill; /* Stretch paper to container */
+  object-fit: fill;
+  /* Stretch paper to container */
 }
 
 .scroll-content {
   position: relative;
   z-index: 1;
-  width: 75%; /* Keep content centered */
+  width: 75%;
+  /* Keep content centered */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,7 +101,8 @@ body {
 
 .login-title {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 4rem; /* Larger as per figure */
+  font-size: 4rem;
+  /* Larger as per figure */
   color: #581c3c;
   margin: 0 0 10px 0;
   font-weight: bold;
@@ -109,7 +116,8 @@ body {
   font-size: 1.8rem;
   color: #3f1818;
   margin-bottom: 35px;
-  border-bottom: 3.5px solid #3f1818; /* Thicker underline */
+  border-bottom: 3.5px solid #3f1818;
+  /* Thicker underline */
   margin-top: 5rem;
   display: inline-block;
   padding-bottom: 2px;
@@ -126,7 +134,8 @@ body {
 .form-group label {
   display: block;
   font-family: "Pixelify Sans", sans-serif;
-  color: #d81b60; /* Specific pink from figma */
+  color: #d81b60;
+  /* Specific pink from figma */
   font-size: 1.1rem;
   margin-bottom: 6px;
   font-weight: bold;
@@ -135,7 +144,8 @@ body {
 .pixel-input {
   width: 100%;
   padding: 12px 18px;
-  background-color: #d8cce4; /* Slightly lighter as per figure */
+  background-color: #d8cce4;
+  /* Slightly lighter as per figure */
   border: 3px solid #4a1e35;
   border-radius: 12px;
   outline: none;
@@ -168,7 +178,7 @@ body {
   width: 100%;
 }
 
-.multi-input-row > * {
+.multi-input-row>* {
   min-width: 0;
 }
 
@@ -190,7 +200,8 @@ body {
 .pixel-select {
   width: 100%;
   padding: 12px 18px;
-  padding-right: 45px; /* Extra padding untuk emoji dropdown icon */
+  padding-right: 45px;
+  /* Extra padding untuk emoji dropdown icon */
   background-color: #d8cce4;
   border: 3px solid #4a1e35;
   border-radius: 12px;
@@ -262,14 +273,14 @@ body {
 
 /* SUBMIT BUTTON */
 .submit-btn {
-  background: linear-gradient(
-    to bottom,
-    #d441a1,
-    #b52c8b
-  ); /* High quality pink gradient */
+  background: linear-gradient(to bottom,
+      #d441a1,
+      #b52c8b);
+  /* High quality pink gradient */
   color: white;
   border: 4px solid #4a1e35;
-  border-bottom-width: 8px; /* High quality depth effect */
+  border-bottom-width: 8px;
+  /* High quality depth effect */
   padding: 10px 45px;
   font-size: 2.5rem;
   border-radius: 15px;
@@ -372,6 +383,7 @@ body {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -383,6 +395,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -483,4 +496,168 @@ body {
 
 .h-screen {
   height: 100vh;
+}
+
+/* Dashboard Specific Styles */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.dashboard-item {
+  margin-bottom: 15px;
+}
+
+.dashboard-label {
+  font-weight: bold;
+  color: #d81b60;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.dashboard-value {
+  font-size: 1.1rem;
+  color: #4a1e35;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  word-break: break-all;
+}
+
+.dashboard-value.full-width {
+  grid-column: span 2;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.view-btn {
+  flex: 1;
+  background: #4a1e35;
+  color: #fff;
+  border: 2px solid #3f1818;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.view-btn:hover {
+  opacity: 0.9;
+}
+
+/* Timeline in Dashboard */
+.dashboard-timeline {
+  width: 100%;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.timeline-mini-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.timeline-mini-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  background: #d81b60;
+  border-radius: 50%;
+}
+
+.timeline-mini-date {
+  font-weight: bold;
+  color: #d81b60;
+  min-width: 100px;
+}
+
+.timeline-mini-event {
+  color: #4a1e35;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: #fdf5e6;
+  border: 6px solid #4a1e35;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: #581c3c;
+  margin-bottom: 15px;
+}
+
+.modal-text {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }

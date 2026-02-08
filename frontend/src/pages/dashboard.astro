@@ -1,131 +1,224 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import "../styles/login-register.css";
+import background from "../assets/background_kursi_kerajaan.png";
+import logo from "../assets/logo.png";
+import paperScroll from "../assets/paper_scroll.png";
 ---
 
-<Layout title="Dashboard">
-  <main class="dashboard-container">
-    <div class="glass-card">
-      <h1>Welcome, <span id="groupNameDisp">...</span>!</h1>
-      <p class="status-badge" id="teamStatus">...</p>
-      
-      <div class="info-grid">
-        <div class="info-item">
-          <label>Leader Name</label>
-          <p id="leaderName">...</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Code Quest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- BACKGROUND IMAGE -->
+    <div class="background-container">
+      <img 
+        src={background.src} 
+        alt="Background" 
+        class="background-img"
+      />
+    </div>
+
+    <!-- HEADER -->
+    <header class="logo-header fade-down">
+      <img src={logo.src} alt="Code Quest Logo" class="intro-logo" />
+    </header>
+
+    <main class="auth-wrapper">
+      <!-- SCROLL CONTAINER -->
+      <div class="scroll-content h-screen fade-up">
+        <img 
+          src={paperScroll.src} 
+          alt="Scroll Background" 
+          class="scroll-bg"
+        />
+        
+        <div class="scroll-content" id="dashboardContent" style="display: none;">
+           <h1 class="login-title">DASHBOARD</h1>
+           
+           <div id="teamBadge" class="leader-type" style="margin-top: 20px;"></div>
+
+           <h2 class="section-title">Team Information</h2>
+           
+           <div class="dashboard-grid">
+             <div class="dashboard-item">
+               <div class="dashboard-label">GROUP NAME</div>
+               <div class="dashboard-value" id="groupName"></div>
+             </div>
+             <div class="dashboard-item">
+               <div class="dashboard-label">LEADER NAME</div>
+               <div class="dashboard-value" id="leaderName"></div>
+             </div>
+             <div class="dashboard-item">
+               <div class="dashboard-label">EMAIL</div>
+               <div class="dashboard-value" id="leaderEmail"></div>
+             </div>
+             <div class="dashboard-item">
+               <div class="dashboard-label">WHATSAPP</div>
+               <div class="dashboard-value" id="leaderWhatsapp"></div>
+             </div>
+             <div class="dashboard-item">
+               <div class="dashboard-label">LINE ID</div>
+               <div class="dashboard-value" id="leaderLine"></div>
+             </div>
+             <div class="dashboard-item">
+               <div class="dashboard-label">GITHUB ID</div>
+               <div class="dashboard-value" id="leaderGithub"></div>
+             </div>
+             <div class="dashboard-item" style="grid-column: span 2;">
+               <div class="dashboard-label">BIRTH PLACE & DATE</div>
+               <div class="dashboard-value" id="leaderBirth"></div>
+             </div>
+           </div>
+
+           <div class="dashboard-actions">
+             <a id="viewCv" href="#" target="_blank" class="view-btn">📄 View CV</a>
+             <a id="viewIdCard" href="#" target="_blank" class="view-btn">🪪 View ID Card</a>
+           </div>
+
+           <h2 class="section-title">Event Timeline</h2>
+           <div id="timelineContainer" class="dashboard-timeline">
+             <!-- Timeline items will be injected here -->
+           </div>
+
+           <div class="button-row" style="margin-bottom: 40px;">
+             <button type="button" class="submit-btn" id="logoutBtn" style="font-size: 1.5rem; padding: 10px 30px;">Logout</button>
+           </div>
         </div>
-        <div class="info-item">
-          <label>Email</label>
-          <p id="leaderEmail">...</p>
-        </div>
-        <div class="info-item">
-          <label>WhatsApp</label>
-          <p id="whatsapp">...</p>
-        </div>
-        <div class="info-item">
-          <label>Role</label>
-          <p id="userRole">...</p>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="scroll-content">
+          <h1 class="login-title">LOADING...</h1>
         </div>
       </div>
+    </main>
 
-      <div class="actions">
-        <button id="logoutBtn" class="danger-btn">Logout</button>
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2 class="modal-title">Confirm Logout</h2>
+        <p class="modal-text">Apakah Anda yakin ingin logout?</p>
+        <div class="modal-buttons">
+          <button id="confirmLogout" class="submit-btn" style="font-size: 1.2rem; padding: 10px 20px; margin: 0;">Ya</button>
+          <button id="cancelLogout" class="secondary-btn" style="font-size: 1.2rem; padding: 10px 20px; margin: 0;">Tidak</button>
+        </div>
       </div>
     </div>
-  </main>
-</Layout>
 
-<style>
-  .dashboard-container {
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    font-family: 'Pixelify Sans', sans-serif;
-  }
-  .glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 2rem;
-    border-radius: 1rem;
-    color: white;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  }
-  h1 { color: #f7d028; margin-bottom: 0.5rem; }
-  .status-badge {
-    background: #db349d;
-    display: inline-block;
-    padding: 0.2rem 0.8rem;
-    border-radius: 1rem;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-  }
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .info-item label {
-    display: block;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-bottom: 0.2rem;
-  }
-  .info-item p { font-size: 1.1rem; }
-  .actions { text-align: right; }
-  .danger-btn {
-    background: #ff4757;
-    border: none;
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-family: inherit;
-  }
-</style>
-
-<script is:inline>
-  async function initDashboard() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.href = '/login';
-      return;
-    }
-
-    try {
-      const res = await fetch('http://localhost:5001/api/dashboard', {
-        headers: {
-          'Authorization': `Bearer ${token}`
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "/login";
+          return;
         }
+
+        const dashboardContent = document.getElementById("dashboardContent");
+        const loadingState = document.getElementById("loadingState");
+
+        try {
+          const res = await fetch("http://localhost:5001/api/dashboard", {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch dashboard data");
+          }
+
+          const data = await res.json();
+          
+          // Fill Data
+          document.getElementById("groupName").textContent = data.groupName;
+          document.getElementById("teamBadge").textContent = data.status;
+          
+          if (data.leader) {
+            document.getElementById("leaderName").textContent = data.leader.fullName;
+            document.getElementById("leaderEmail").textContent = data.leader.email;
+            document.getElementById("leaderWhatsapp").textContent = data.leader.whatsappNumber;
+            document.getElementById("leaderLine").textContent = data.leader.lineId;
+            document.getElementById("leaderGithub").textContent = data.leader.githubId;
+            
+            const birthDate = new Date(data.leader.birthDate).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric'
+            });
+            document.getElementById("leaderBirth").textContent = `${data.leader.birthPlace}, ${birthDate}`;
+
+            // PDF/File links
+            if (data.leader.cvUrl) {
+                const cvA = document.getElementById("viewCv");
+                cvA.href = data.leader.cvUrl.startsWith('http') ? data.leader.cvUrl : `http://localhost:5001${data.leader.cvUrl}`;
+            }
+            if (data.leader.idCardUrl) {
+                const idA = document.getElementById("viewIdCard");
+                idA.href = data.leader.idCardUrl.startsWith('http') ? data.leader.idCardUrl : `http://localhost:5001${data.leader.idCardUrl}`;
+            }
+          }
+
+          // Populate Timeline
+          const timelineContainer = document.getElementById("timelineContainer");
+          if (data.timelines && data.timelines.length > 0) {
+            data.timelines.forEach(item => {
+              const div = document.createElement("div");
+              div.className = "timeline-mini-item";
+              div.innerHTML = `
+                <div class="timeline-mini-date">${item.date}</div>
+                <div class="timeline-mini-event">${item.event}</div>
+              `;
+              timelineContainer.appendChild(div);
+            });
+          } else {
+            timelineContainer.innerHTML = "<p>No timeline data available.</p>";
+          }
+
+          loadingState.style.display = "none";
+          dashboardContent.style.display = "flex";
+
+        } catch (err) {
+          console.error(err);
+          alert("Error loading dashboard data. Please login again.");
+          localStorage.removeItem("token");
+          localStorage.removeItem("team");
+          window.location.href = "/login";
+        }
+
+        // Logout Logic
+        const logoutBtn = document.getElementById("logoutBtn");
+        const logoutModal = document.getElementById("logoutModal");
+        const confirmLogout = document.getElementById("confirmLogout");
+        const cancelLogout = document.getElementById("cancelLogout");
+
+        logoutBtn.addEventListener("click", () => {
+          logoutModal.classList.add("active");
+        });
+
+        cancelLogout.addEventListener("click", () => {
+          logoutModal.classList.remove("active");
+        });
+
+        confirmLogout.addEventListener("click", () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("team");
+          window.location.href = "/";
+        });
+
+        // Close modal on overlay click
+        logoutModal.addEventListener("click", (e) => {
+          if (e.target === logoutModal) {
+            logoutModal.classList.remove("active");
+          }
+        });
       });
-
-      if (!res.ok) throw new Error('Unauthorized');
-
-      const data = await res.json();
-      
-      document.getElementById('groupNameDisp').textContent = data.groupName;
-      document.getElementById('teamStatus').textContent = data.status;
-      document.getElementById('leaderName').textContent = data.leader?.fullName || 'N/A';
-      document.getElementById('leaderEmail').textContent = data.leader?.email || 'N/A';
-      document.getElementById('whatsapp').textContent = data.leader?.whatsappNumber || 'N/A';
-      document.getElementById('userRole').textContent = data.role;
-
-    } catch (err) {
-      console.error(err);
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-    }
-  }
-
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('team');
-    window.location.href = '/login';
-  });
-
-  initDashboard();
-</script>
+    </script>
+  </body>
+</html>
