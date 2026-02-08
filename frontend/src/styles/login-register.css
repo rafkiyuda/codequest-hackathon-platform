@@ -661,6 +661,7 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
 /* Dashbord Sidebar Layout */
 .dashboard-layout {
   display: flex;
@@ -761,7 +762,7 @@ body {
 /* Section visibility */
 .dashboard-section {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -773,13 +774,21 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Adjust scroll content for sidebar layout */
 .main-container .scroll-container {
-  max-width: 800px;
+  max-width: 1000px;
+  width: 95%;
   min-height: auto;
   padding: 80px 0;
   margin-bottom: 40px;
@@ -805,18 +814,22 @@ body {
   .sidebar {
     transform: translateX(-100%);
   }
-  
+
   .sidebar.active {
     transform: translateX(0);
   }
-  
+
   .main-container {
     margin-left: 0;
     padding: 20px;
     padding-top: 80px;
   }
-  
+
   .mobile-nav-toggle {
     display: block;
   }
+}
+/* Specific override for dashboard content width to prevent overlap */
+.main-container .scroll-content {
+  width: 85%;
 }
