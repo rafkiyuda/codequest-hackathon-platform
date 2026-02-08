@@ -130,8 +130,12 @@ import LoginForm from "../components/login/Login.astro";
             if (res.ok) {
               localStorage.setItem("token", result.token);
               localStorage.setItem("team", JSON.stringify(result.team));
-              alert("Login successful!");
-              window.location.href = "/dashboard";
+              
+              if (result.team.role === 'ADMIN') {
+                window.location.href = "/admin/dashboard";
+              } else {
+                window.location.href = "/dashboard";
+              }
             } else {
               alert("Error: " + result.message);
             }

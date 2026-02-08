@@ -90,8 +90,8 @@ import paperScroll from "../assets/paper_scroll.png";
                   <div class="dashboard-value" id="leaderGithub"></div>
                 </div>
                 <div class="dashboard-item" style="grid-column: span 2;">
-                  <div class="dashboard-label">BIRTH PLACE & DATE</div>
-                  <div class="dashboard-value" id="leaderBirth"></div>
+                  <div class="dashboard-label">CONTACT PERSON</div>
+                  <div class="dashboard-value" id="contactPerson">Loading...</div>
                 </div>
               </div>
 
@@ -203,6 +203,16 @@ import paperScroll from "../assets/paper_scroll.png";
             }
             if (data.leader.idCardUrl) {
               document.getElementById("viewIdCard").href = data.leader.idCardUrl.startsWith('http') ? data.leader.idCardUrl : `http://localhost:5001${data.leader.idCardUrl}`;
+            }
+          }
+
+          // Fill Contact Person
+          if (data.socials) {
+            const contact = data.socials.find(s => s.name === 'contact_person');
+            if (contact) {
+              document.getElementById("contactPerson").textContent = contact.account;
+            } else {
+              document.getElementById("contactPerson").textContent = "-";
             }
           }
 

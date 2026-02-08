@@ -115,8 +115,13 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        const team = await prisma.team.findUnique({
-            where: { groupName }
+        const team = await prisma.team.findFirst({
+            where: {
+                groupName: {
+                    equals: groupName,
+                    mode: 'insensitive'
+                }
+            }
         });
 
         if (!team) {

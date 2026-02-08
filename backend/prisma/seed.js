@@ -94,6 +94,22 @@ async function main() {
         });
     }
 
+    // 6. Admin Account
+    const adminPassword = await require('bcryptjs').hash('Admin123!', 10);
+    await prisma.team.upsert({
+        where: { groupName: 'Admin' },
+        update: {
+            password: adminPassword,
+            role: 'ADMIN'
+        },
+        create: {
+            groupName: 'Admin',
+            password: adminPassword,
+            status: 'NON_BINUSIAN', // Dummy status
+            role: 'ADMIN'
+        }
+    });
+
     console.log('Seeding completed!');
 }
 
