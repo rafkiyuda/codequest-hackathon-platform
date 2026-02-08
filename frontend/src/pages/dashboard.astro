@@ -19,88 +19,106 @@ import paperScroll from "../assets/paper_scroll.png";
   <body>
     <!-- BACKGROUND IMAGE -->
     <div class="background-container">
-      <img 
-        src={background.src} 
-        alt="Background" 
-        class="background-img"
-      />
+      <img src={background.src} alt="Background" class="background-img" />
     </div>
 
-    <!-- HEADER -->
-    <header class="logo-header fade-down">
-      <img src={logo.src} alt="Code Quest Logo" class="intro-logo" />
-    </header>
+    <!-- DASHBOARD LAYOUT -->
+    <div class="dashboard-layout">
+      <!-- Mobile Toggle -->
+      <button id="mobileToggle" class="mobile-nav-toggle">☰</button>
 
-    <main class="auth-wrapper">
-      <!-- SCROLL CONTAINER -->
-      <div class="scroll-content h-screen fade-up">
-        <img 
-          src={paperScroll.src} 
-          alt="Scroll Background" 
-          class="scroll-bg"
-        />
-        
-        <div class="scroll-content" id="dashboardContent" style="display: none;">
-           <h1 class="login-title">DASHBOARD</h1>
-           
-           <div id="teamBadge" class="leader-type" style="margin-top: 20px;"></div>
-
-           <h2 class="section-title">Team Information</h2>
-           
-           <div class="dashboard-grid">
-             <div class="dashboard-item">
-               <div class="dashboard-label">GROUP NAME</div>
-               <div class="dashboard-value" id="groupName"></div>
-             </div>
-             <div class="dashboard-item">
-               <div class="dashboard-label">LEADER NAME</div>
-               <div class="dashboard-value" id="leaderName"></div>
-             </div>
-             <div class="dashboard-item">
-               <div class="dashboard-label">EMAIL</div>
-               <div class="dashboard-value" id="leaderEmail"></div>
-             </div>
-             <div class="dashboard-item">
-               <div class="dashboard-label">WHATSAPP</div>
-               <div class="dashboard-value" id="leaderWhatsapp"></div>
-             </div>
-             <div class="dashboard-item">
-               <div class="dashboard-label">LINE ID</div>
-               <div class="dashboard-value" id="leaderLine"></div>
-             </div>
-             <div class="dashboard-item">
-               <div class="dashboard-label">GITHUB ID</div>
-               <div class="dashboard-value" id="leaderGithub"></div>
-             </div>
-             <div class="dashboard-item" style="grid-column: span 2;">
-               <div class="dashboard-label">BIRTH PLACE & DATE</div>
-               <div class="dashboard-value" id="leaderBirth"></div>
-             </div>
-           </div>
-
-           <div class="dashboard-actions">
-             <a id="viewCv" href="#" target="_blank" class="view-btn">📄 View CV</a>
-             <a id="viewIdCard" href="#" target="_blank" class="view-btn">🪪 View ID Card</a>
-           </div>
-
-           <h2 class="section-title">Event Timeline</h2>
-           <div id="timelineContainer" class="dashboard-timeline">
-             <!-- Timeline items will be injected here -->
-           </div>
-
-           <div class="button-row" style="margin-bottom: 40px;">
-             <button type="button" class="submit-btn" id="logoutBtn" style="font-size: 1.5rem; padding: 10px 30px;">Logout</button>
-           </div>
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <img src={logo.src} alt="Logo" />
         </div>
 
-        <!-- Loading State -->
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-section="profile">
+            <span>👤</span> Profile Tim
+          </button>
+          <button class="nav-item" data-section="timeline">
+            <span>📅</span> Timeline
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="nav-item nav-logout" id="logoutBtn">
+            <span>🚪</span> Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-container">
+        <!-- LOADING STATE -->
         <div id="loadingState" class="scroll-content">
           <h1 class="login-title">LOADING...</h1>
         </div>
-      </div>
-    </main>
 
-    <!-- Logout Modal -->
+        <!-- PROFILE SECTION -->
+        <section id="profileSection" class="dashboard-section active">
+          <div class="scroll-container">
+            <img src={paperScroll.src} alt="Scroll" class="scroll-bg" />
+            <div class="scroll-content">
+              <h1 class="login-title">PROFIL TIM</h1>
+              <div id="teamBadge" class="leader-type" style="margin-top: 20px;"></div>
+              
+              <div class="dashboard-grid">
+                <div class="dashboard-item">
+                  <div class="dashboard-label">GROUP NAME</div>
+                  <div class="dashboard-value" id="groupName"></div>
+                </div>
+                <div class="dashboard-item">
+                  <div class="dashboard-label">LEADER NAME</div>
+                  <div class="dashboard-value" id="leaderName"></div>
+                </div>
+                <div class="dashboard-item">
+                  <div class="dashboard-label">EMAIL</div>
+                  <div class="dashboard-value" id="leaderEmail"></div>
+                </div>
+                <div class="dashboard-item">
+                  <div class="dashboard-label">WHATSAPP</div>
+                  <div class="dashboard-value" id="leaderWhatsapp"></div>
+                </div>
+                <div class="dashboard-item">
+                  <div class="dashboard-label">LINE ID</div>
+                  <div class="dashboard-value" id="leaderLine"></div>
+                </div>
+                <div class="dashboard-item">
+                  <div class="dashboard-label">GITHUB ID</div>
+                  <div class="dashboard-value" id="leaderGithub"></div>
+                </div>
+                <div class="dashboard-item" style="grid-column: span 2;">
+                  <div class="dashboard-label">BIRTH PLACE & DATE</div>
+                  <div class="dashboard-value" id="leaderBirth"></div>
+                </div>
+              </div>
+
+              <div class="dashboard-actions">
+                <a id="viewCv" href="#" target="_blank" class="view-btn">📄 View CV</a>
+                <a id="viewIdCard" href="#" target="_blank" class="view-btn">🪪 View ID Card</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TIMELINE SECTION -->
+        <section id="timelineSection" class="dashboard-section">
+          <div class="scroll-container">
+            <img src={paperScroll.src} alt="Scroll" class="scroll-bg" />
+            <div class="scroll-content">
+              <h1 class="login-title">TIMELINE</h1>
+              <div id="timelineContainer" class="dashboard-timeline">
+                <!-- Timeline items injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- LOGOUT MODAL -->
     <div id="logoutModal" class="modal-overlay">
       <div class="modal-content">
         <h2 class="modal-title">Confirm Logout</h2>
@@ -120,23 +138,51 @@ import paperScroll from "../assets/paper_scroll.png";
           return;
         }
 
-        const dashboardContent = document.getElementById("dashboardContent");
+        const sections = {
+          profile: document.getElementById("profileSection"),
+          timeline: document.getElementById("timelineSection")
+        };
+        const navItems = document.querySelectorAll(".nav-item[data-section]");
         const loadingState = document.getElementById("loadingState");
+        const sidebar = document.getElementById("sidebar");
+        const mobileToggle = document.getElementById("mobileToggle");
+
+        // Section Switching
+        navItems.forEach(item => {
+          item.addEventListener("click", () => {
+            const target = item.getAttribute("data-section");
+            
+            // Update active states
+            navItems.forEach(nav => nav.classList.remove("active"));
+            item.classList.add("active");
+
+            // Update visible sections
+            Object.keys(sections).forEach(key => {
+              sections[key].classList.toggle("active", key === target);
+            });
+
+            // Close sidebar on mobile after click
+            if (window.innerWidth <= 1024) {
+              sidebar.classList.remove("active");
+            }
+          });
+        });
+
+        // Mobile Toggle
+        mobileToggle.addEventListener("click", () => {
+          sidebar.classList.toggle("active");
+        });
 
         try {
           const res = await fetch("http://localhost:5001/api/dashboard", {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
+            headers: { "Authorization": `Bearer ${token}` }
           });
 
-          if (!res.ok) {
-            throw new Error("Failed to fetch dashboard data");
-          }
+          if (!res.ok) throw new Error("Failed to fetch dashboard data");
 
           const data = await res.json();
           
-          // Fill Data
+          // Fill Profile Data
           document.getElementById("groupName").textContent = data.groupName;
           document.getElementById("teamBadge").textContent = data.status;
           
@@ -148,24 +194,19 @@ import paperScroll from "../assets/paper_scroll.png";
             document.getElementById("leaderGithub").textContent = data.leader.githubId;
             
             const birthDate = new Date(data.leader.birthDate).toLocaleDateString('en-GB', {
-              day: '2-digit',
-              month: 'long',
-              year: 'numeric'
+              day: '2-digit', month: 'long', year: 'numeric'
             });
             document.getElementById("leaderBirth").textContent = `${data.leader.birthPlace}, ${birthDate}`;
 
-            // PDF/File links
             if (data.leader.cvUrl) {
-                const cvA = document.getElementById("viewCv");
-                cvA.href = data.leader.cvUrl.startsWith('http') ? data.leader.cvUrl : `http://localhost:5001${data.leader.cvUrl}`;
+              document.getElementById("viewCv").href = data.leader.cvUrl.startsWith('http') ? data.leader.cvUrl : `http://localhost:5001${data.leader.cvUrl}`;
             }
             if (data.leader.idCardUrl) {
-                const idA = document.getElementById("viewIdCard");
-                idA.href = data.leader.idCardUrl.startsWith('http') ? data.leader.idCardUrl : `http://localhost:5001${data.leader.idCardUrl}`;
+              document.getElementById("viewIdCard").href = data.leader.idCardUrl.startsWith('http') ? data.leader.idCardUrl : `http://localhost:5001${data.leader.idCardUrl}`;
             }
           }
 
-          // Populate Timeline
+          // Fill Timeline Data
           const timelineContainer = document.getElementById("timelineContainer");
           if (data.timelines && data.timelines.length > 0) {
             data.timelines.forEach(item => {
@@ -177,46 +218,22 @@ import paperScroll from "../assets/paper_scroll.png";
               `;
               timelineContainer.appendChild(div);
             });
-          } else {
-            timelineContainer.innerHTML = "<p>No timeline data available.</p>";
           }
 
           loadingState.style.display = "none";
-          dashboardContent.style.display = "flex";
-
         } catch (err) {
           console.error(err);
-          alert("Error loading dashboard data. Please login again.");
           localStorage.removeItem("token");
-          localStorage.removeItem("team");
           window.location.href = "/login";
         }
 
         // Logout Logic
-        const logoutBtn = document.getElementById("logoutBtn");
         const logoutModal = document.getElementById("logoutModal");
-        const confirmLogout = document.getElementById("confirmLogout");
-        const cancelLogout = document.getElementById("cancelLogout");
-
-        logoutBtn.addEventListener("click", () => {
-          logoutModal.classList.add("active");
-        });
-
-        cancelLogout.addEventListener("click", () => {
-          logoutModal.classList.remove("active");
-        });
-
-        confirmLogout.addEventListener("click", () => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("team");
+        document.getElementById("logoutBtn").addEventListener("click", () => logoutModal.classList.add("active"));
+        document.getElementById("cancelLogout").addEventListener("click", () => logoutModal.classList.remove("active"));
+        document.getElementById("confirmLogout").addEventListener("click", () => {
+          localStorage.clear();
           window.location.href = "/";
-        });
-
-        // Close modal on overlay click
-        logoutModal.addEventListener("click", (e) => {
-          if (e.target === logoutModal) {
-            logoutModal.classList.remove("active");
-          }
         });
       });
     </script>
